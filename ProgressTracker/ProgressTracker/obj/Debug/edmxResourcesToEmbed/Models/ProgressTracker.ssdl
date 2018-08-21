@@ -1,0 +1,469 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProgressTrackerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Allocation">
+    <Key>
+      <PropertyRef Name="AllId" />
+    </Key>
+    <Property Name="StudentNumber" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="AllId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="StaffNumber" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Picture" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Document">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+    </Key>
+    <Property Name="DocumentID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="DocumentName" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="FileExtension" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ContentType" Type="nvarchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="EventID" />
+    </Key>
+    <Property Name="EventID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="isFullDay" Type="bit" Nullable="false" />
+    <Property Name="StartTime" Type="datetime" Nullable="false" />
+    <Property Name="EndTime" Type="datetime" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="StudentNumber" Type="nvarchar" MaxLength="128" />
+    <Property Name="StaffNumber" Type="nvarchar" MaxLength="128" />
+    <Property Name="ThemeColor" Type="nvarchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Link">
+    <Key>
+      <PropertyRef Name="LinkId" />
+    </Key>
+    <Property Name="LinkId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" MaxLength="200" />
+    <Property Name="SourceTaskId" Type="int" />
+    <Property Name="TargetTaskId" Type="int" />
+  </EntityType>
+  <EntityType Name="Meeting">
+    <Key>
+      <PropertyRef Name="StartTime" />
+    </Key>
+    <Property Name="StartTime" Type="datetime" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="EndTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MeetingRecord">
+    <Key>
+      <PropertyRef Name="MeetingId" />
+    </Key>
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="StartTime" Type="datetime" Nullable="false" />
+    <Property Name="StaffNumber" Type="nvarchar" MaxLength="128" />
+    <Property Name="StudentNumber" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Minutes" Type="nvarchar" MaxLength="200" />
+    <Property Name="Agenda" Type="nvarchar" MaxLength="200" />
+    <Property Name="MeetingId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Milestone">
+    <Key>
+      <PropertyRef Name="MilestoneID" />
+    </Key>
+    <Property Name="MilestoneID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="EndDate" Type="datetime" Nullable="false" />
+    <Property Name="ProjectNumber" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="ProjectNumber" />
+    </Key>
+    <Property Name="ProjectNumber" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProjectName" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="DueDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectSupervisor">
+    <Key>
+      <PropertyRef Name="StaffNumber" />
+    </Key>
+    <Property Name="StaffNumber" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="StudentNumber" />
+    </Key>
+    <Property Name="StudentNumber" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Course" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="StudyYear" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Allocation_ProjectSupervisor">
+    <End Role="ProjectSupervisor" Type="Self.ProjectSupervisor" Multiplicity="1" />
+    <End Role="Allocation" Type="Self.Allocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectSupervisor">
+        <PropertyRef Name="StaffNumber" />
+      </Principal>
+      <Dependent Role="Allocation">
+        <PropertyRef Name="StaffNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Allocation_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Allocation" Type="Self.Allocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentNumber" />
+      </Principal>
+      <Dependent Role="Allocation">
+        <PropertyRef Name="StudentNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Document_Milestone">
+    <End Role="Milestone" Type="Self.Milestone" Multiplicity="1" />
+    <End Role="Document" Type="Self.Document" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Milestone">
+        <PropertyRef Name="MilestoneID" />
+      </Principal>
+      <Dependent Role="Document">
+        <PropertyRef Name="DocumentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Event_ProjectSupervisor">
+    <End Role="ProjectSupervisor" Type="Self.ProjectSupervisor" Multiplicity="0..1" />
+    <End Role="Event" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectSupervisor">
+        <PropertyRef Name="StaffNumber" />
+      </Principal>
+      <Dependent Role="Event">
+        <PropertyRef Name="StaffNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Event_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="Event" Type="Self.Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentNumber" />
+      </Principal>
+      <Dependent Role="Event">
+        <PropertyRef Name="StudentNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MeetingRecord_Meeting">
+    <End Role="Meeting" Type="Self.Meeting" Multiplicity="1" />
+    <End Role="MeetingRecord" Type="Self.MeetingRecord" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Meeting">
+        <PropertyRef Name="StartTime" />
+      </Principal>
+      <Dependent Role="MeetingRecord">
+        <PropertyRef Name="StartTime" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MeetingRecord_ProjectSupervisor">
+    <End Role="ProjectSupervisor" Type="Self.ProjectSupervisor" Multiplicity="0..1" />
+    <End Role="MeetingRecord" Type="Self.MeetingRecord" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectSupervisor">
+        <PropertyRef Name="StaffNumber" />
+      </Principal>
+      <Dependent Role="MeetingRecord">
+        <PropertyRef Name="StaffNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MeetingRecord_Student1">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="MeetingRecord" Type="Self.MeetingRecord" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentNumber" />
+      </Principal>
+      <Dependent Role="MeetingRecord">
+        <PropertyRef Name="StudentNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Milestone_Link">
+    <End Role="Link" Type="Self.Link" Multiplicity="1" />
+    <End Role="Milestone" Type="Self.Milestone" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Link">
+        <PropertyRef Name="LinkId" />
+      </Principal>
+      <Dependent Role="Milestone">
+        <PropertyRef Name="MilestoneID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Milestone_Student1">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Milestone" Type="Self.Milestone" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentNumber" />
+      </Principal>
+      <Dependent Role="Milestone">
+        <PropertyRef Name="MilestoneID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Project_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentNumber" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="ProjectNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProjectSupervisor_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="ProjectSupervisor" Type="Self.ProjectSupervisor" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProjectSupervisor">
+        <PropertyRef Name="StaffNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Student_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="StudentNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ProgressTrackerModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Allocation" EntityType="Self.Allocation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Link" EntityType="Self.Link" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Meeting" EntityType="Self.Meeting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MeetingRecord" EntityType="Self.MeetingRecord" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Milestone" EntityType="Self.Milestone" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProjectSupervisor" EntityType="Self.ProjectSupervisor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Allocation_ProjectSupervisor" Association="Self.FK_Allocation_ProjectSupervisor">
+      <End Role="ProjectSupervisor" EntitySet="ProjectSupervisor" />
+      <End Role="Allocation" EntitySet="Allocation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Allocation_Student" Association="Self.FK_Allocation_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Allocation" EntitySet="Allocation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Document_Milestone" Association="Self.FK_Document_Milestone">
+      <End Role="Milestone" EntitySet="Milestone" />
+      <End Role="Document" EntitySet="Document" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Event_ProjectSupervisor" Association="Self.FK_Event_ProjectSupervisor">
+      <End Role="ProjectSupervisor" EntitySet="ProjectSupervisor" />
+      <End Role="Event" EntitySet="Event" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Event_Student" Association="Self.FK_Event_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Event" EntitySet="Event" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MeetingRecord_Meeting" Association="Self.FK_MeetingRecord_Meeting">
+      <End Role="Meeting" EntitySet="Meeting" />
+      <End Role="MeetingRecord" EntitySet="MeetingRecord" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MeetingRecord_ProjectSupervisor" Association="Self.FK_MeetingRecord_ProjectSupervisor">
+      <End Role="ProjectSupervisor" EntitySet="ProjectSupervisor" />
+      <End Role="MeetingRecord" EntitySet="MeetingRecord" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MeetingRecord_Student1" Association="Self.FK_MeetingRecord_Student1">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="MeetingRecord" EntitySet="MeetingRecord" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Milestone_Link" Association="Self.FK_Milestone_Link">
+      <End Role="Link" EntitySet="Link" />
+      <End Role="Milestone" EntitySet="Milestone" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Milestone_Student1" Association="Self.FK_Milestone_Student1">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Milestone" EntitySet="Milestone" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Project_Student" Association="Self.FK_Project_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProjectSupervisor_AspNetUsers" Association="Self.FK_ProjectSupervisor_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ProjectSupervisor" EntitySet="ProjectSupervisor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Student_AspNetUsers" Association="Self.FK_Student_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Student" EntitySet="Student" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ProgressTracker.Models;
@@ -171,6 +172,164 @@ namespace ProgressTracker.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        //
+        // GET: /Account/Register
+        [AllowAnonymous]
+        public ActionResult RegisterStudent()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterStudent(RegisterStudentViewModel model, HttpPostedFileBase Picture)
+        {
+            
+            using (var db = new ProgressTrackerEntities())
+            {
+
+                if (ModelState.IsValid)
+                {
+                    var user = new ApplicationUser
+                    {
+                        UserName = model.Email,
+                        Email = model.Email,
+                        Name = model.Name,
+                        Surname = model.Surname,
+                        Title = model.Title,
+                        Picture = null
+                    };
+
+
+
+                    var result = await UserManager.CreateAsync(user, model.Password);
+
+                    if (result.Succeeded)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                        var _context = new ApplicationDbContext();
+                        var roleStore = new RoleStore<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>(_context);
+                        var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                        var userStore = new UserStore<ApplicationUser>(_context);
+                        var UseManage = new UserManager<ApplicationUser>(userStore);
+                        UseManage.AddToRole(user.Id, "Student");
+                        var id = user.Id;
+
+
+                        Student student = new Student
+                        {
+                            Course = model.Course,
+                            StudyYear = model.StudyYear,
+                            StudentNumber = id,
+                        };
+                        db.Students.Add(student);
+                        db.SaveChanges();
+
+
+                        return RedirectToAction("Index", "Home");
+
+                        //return RedirectToAction("SelectProject", "Projects");
+                    }
+                    AddErrors(result);
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        //
+        // GET: /Account/Register
+        [AllowAnonymous]
+        public ActionResult RegisterSupervisor()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterSupervisor(RegisterSupervisorViewModel model, HttpPostedFileBase Picture)
+        {
+          
+            using (var db = new ProgressTrackerEntities())
+            {
+
+
+                if (ModelState.IsValid)
+                {
+
+                    var user = new ApplicationUser
+                    {
+                        UserName = model.Email,
+                        Email = model.Email,
+                        Name = model.Name,
+                        Surname = model.Surname,
+                        Title = model.Title,
+                      
+                        Picture = null
+
+                    };
+
+
+
+                    var result = await UserManager.CreateAsync(user, model.Password);
+
+                    if (result.Succeeded)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                        var _context = new ApplicationDbContext();
+                        var roleStore = new RoleStore<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>(_context);
+                        var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+                        var userStore = new UserStore<ApplicationUser>(_context);
+                        var UseManage = new UserManager<ApplicationUser>(userStore);
+                        UseManage.AddToRole(user.Id, "ProjectSupervisor");
+                        var id = user.Id;
+
+                        ProjectSupervisor supervisor = new ProjectSupervisor
+                        {
+                            StaffNumber = id,
+                        };
+
+                        db.ProjectSupervisors.Add(supervisor);
+                        db.SaveChanges();
+
+
+
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    AddErrors(result);
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+
 
         //
         // GET: /Account/ConfirmEmail

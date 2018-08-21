@@ -1,0 +1,464 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProgressTrackerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ProgressTrackerEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="ProgressTrackerModel.C__MigrationHistory" />
+    <EntitySet Name="Allocations" EntityType="ProgressTrackerModel.Allocation" />
+    <EntitySet Name="AspNetRoles" EntityType="ProgressTrackerModel.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="ProgressTrackerModel.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="ProgressTrackerModel.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="ProgressTrackerModel.AspNetUser" />
+    <EntitySet Name="Documents" EntityType="ProgressTrackerModel.Document" />
+    <EntitySet Name="Events" EntityType="ProgressTrackerModel.Event" />
+    <EntitySet Name="Links" EntityType="ProgressTrackerModel.Link" />
+    <EntitySet Name="Meetings" EntityType="ProgressTrackerModel.Meeting" />
+    <EntitySet Name="MeetingRecords" EntityType="ProgressTrackerModel.MeetingRecord" />
+    <EntitySet Name="Milestones" EntityType="ProgressTrackerModel.Milestone" />
+    <EntitySet Name="Projects" EntityType="ProgressTrackerModel.Project" />
+    <EntitySet Name="ProjectSupervisors" EntityType="ProgressTrackerModel.ProjectSupervisor" />
+    <EntitySet Name="Students" EntityType="ProgressTrackerModel.Student" />
+    <EntitySet Name="sysdiagrams" EntityType="ProgressTrackerModel.sysdiagram" />
+    <AssociationSet Name="FK_Allocation_ProjectSupervisor" Association="ProgressTrackerModel.FK_Allocation_ProjectSupervisor">
+      <End Role="ProjectSupervisor" EntitySet="ProjectSupervisors" />
+      <End Role="Allocation" EntitySet="Allocations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Allocation_Student" Association="ProgressTrackerModel.FK_Allocation_Student">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="Allocation" EntitySet="Allocations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="ProgressTrackerModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="ProgressTrackerModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProjectSupervisor_AspNetUsers" Association="ProgressTrackerModel.FK_ProjectSupervisor_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="ProjectSupervisor" EntitySet="ProjectSupervisors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Student_AspNetUsers" Association="ProgressTrackerModel.FK_Student_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="Student" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Document_Milestone" Association="ProgressTrackerModel.FK_Document_Milestone">
+      <End Role="Milestone" EntitySet="Milestones" />
+      <End Role="Document" EntitySet="Documents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Event_ProjectSupervisor" Association="ProgressTrackerModel.FK_Event_ProjectSupervisor">
+      <End Role="ProjectSupervisor" EntitySet="ProjectSupervisors" />
+      <End Role="Event" EntitySet="Events" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Event_Student" Association="ProgressTrackerModel.FK_Event_Student">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="Event" EntitySet="Events" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Milestone_Link" Association="ProgressTrackerModel.FK_Milestone_Link">
+      <End Role="Link" EntitySet="Links" />
+      <End Role="Milestone" EntitySet="Milestones" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MeetingRecord_Meeting" Association="ProgressTrackerModel.FK_MeetingRecord_Meeting">
+      <End Role="Meeting" EntitySet="Meetings" />
+      <End Role="MeetingRecord" EntitySet="MeetingRecords" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MeetingRecord_ProjectSupervisor" Association="ProgressTrackerModel.FK_MeetingRecord_ProjectSupervisor">
+      <End Role="ProjectSupervisor" EntitySet="ProjectSupervisors" />
+      <End Role="MeetingRecord" EntitySet="MeetingRecords" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MeetingRecord_Student1" Association="ProgressTrackerModel.FK_MeetingRecord_Student1">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="MeetingRecord" EntitySet="MeetingRecords" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Milestone_Student1" Association="ProgressTrackerModel.FK_Milestone_Student1">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="Milestone" EntitySet="Milestones" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Project_Student" Association="ProgressTrackerModel.FK_Project_Student">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="Project" EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="ProgressTrackerModel.AspNetUserRoles">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Allocation">
+    <Key>
+      <PropertyRef Name="AllId" />
+    </Key>
+    <Property Name="StudentNumber" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="AllId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="StaffNumber" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ProjectSupervisor" Relationship="ProgressTrackerModel.FK_Allocation_ProjectSupervisor" FromRole="Allocation" ToRole="ProjectSupervisor" />
+    <NavigationProperty Name="Student" Relationship="ProgressTrackerModel.FK_Allocation_Student" FromRole="Allocation" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="ProgressTrackerModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="ProgressTrackerModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="ProgressTrackerModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Surname" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Picture" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="ProgressTrackerModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="ProgressTrackerModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+    <NavigationProperty Name="ProjectSupervisor" Relationship="ProgressTrackerModel.FK_ProjectSupervisor_AspNetUsers" FromRole="AspNetUser" ToRole="ProjectSupervisor" />
+    <NavigationProperty Name="Student" Relationship="ProgressTrackerModel.FK_Student_AspNetUsers" FromRole="AspNetUser" ToRole="Student" />
+    <NavigationProperty Name="AspNetRoles" Relationship="ProgressTrackerModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+  </EntityType>
+  <EntityType Name="Document">
+    <Key>
+      <PropertyRef Name="DocumentID" />
+    </Key>
+    <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DocumentName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="FileExtension" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ContentType" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Milestone" Relationship="ProgressTrackerModel.FK_Document_Milestone" FromRole="Document" ToRole="Milestone" />
+  </EntityType>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="EventID" />
+    </Key>
+    <Property Name="EventID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="isFullDay" Type="Boolean" Nullable="false" />
+    <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndTime" Type="DateTime" Precision="3" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Subject" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="StudentNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="StaffNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ThemeColor" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ProjectSupervisor" Relationship="ProgressTrackerModel.FK_Event_ProjectSupervisor" FromRole="Event" ToRole="ProjectSupervisor" />
+    <NavigationProperty Name="Student" Relationship="ProgressTrackerModel.FK_Event_Student" FromRole="Event" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Link">
+    <Key>
+      <PropertyRef Name="LinkId" />
+    </Key>
+    <Property Name="LinkId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="SourceTaskId" Type="Int32" />
+    <Property Name="TargetTaskId" Type="Int32" />
+    <NavigationProperty Name="Milestone" Relationship="ProgressTrackerModel.FK_Milestone_Link" FromRole="Link" ToRole="Milestone" />
+  </EntityType>
+  <EntityType Name="Meeting">
+    <Key>
+      <PropertyRef Name="StartTime" />
+    </Key>
+    <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="MeetingRecords" Relationship="ProgressTrackerModel.FK_MeetingRecord_Meeting" FromRole="Meeting" ToRole="MeetingRecord" />
+  </EntityType>
+  <EntityType Name="MeetingRecord">
+    <Key>
+      <PropertyRef Name="MeetingId" />
+    </Key>
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="StaffNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="StudentNumber" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Minutes" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Agenda" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="MeetingId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Meeting" Relationship="ProgressTrackerModel.FK_MeetingRecord_Meeting" FromRole="MeetingRecord" ToRole="Meeting" />
+    <NavigationProperty Name="ProjectSupervisor" Relationship="ProgressTrackerModel.FK_MeetingRecord_ProjectSupervisor" FromRole="MeetingRecord" ToRole="ProjectSupervisor" />
+    <NavigationProperty Name="Student" Relationship="ProgressTrackerModel.FK_MeetingRecord_Student1" FromRole="MeetingRecord" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Milestone">
+    <Key>
+      <PropertyRef Name="MilestoneID" />
+    </Key>
+    <Property Name="MilestoneID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ProjectNumber" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Document" Relationship="ProgressTrackerModel.FK_Document_Milestone" FromRole="Milestone" ToRole="Document" />
+    <NavigationProperty Name="Link" Relationship="ProgressTrackerModel.FK_Milestone_Link" FromRole="Milestone" ToRole="Link" />
+    <NavigationProperty Name="Student" Relationship="ProgressTrackerModel.FK_Milestone_Student1" FromRole="Milestone" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="ProjectNumber" />
+    </Key>
+    <Property Name="ProjectNumber" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Student" Relationship="ProgressTrackerModel.FK_Project_Student" FromRole="Project" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="ProjectSupervisor">
+    <Key>
+      <PropertyRef Name="StaffNumber" />
+    </Key>
+    <Property Name="StaffNumber" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Allocations" Relationship="ProgressTrackerModel.FK_Allocation_ProjectSupervisor" FromRole="ProjectSupervisor" ToRole="Allocation" />
+    <NavigationProperty Name="AspNetUser" Relationship="ProgressTrackerModel.FK_ProjectSupervisor_AspNetUsers" FromRole="ProjectSupervisor" ToRole="AspNetUser" />
+    <NavigationProperty Name="Events" Relationship="ProgressTrackerModel.FK_Event_ProjectSupervisor" FromRole="ProjectSupervisor" ToRole="Event" />
+    <NavigationProperty Name="MeetingRecords" Relationship="ProgressTrackerModel.FK_MeetingRecord_ProjectSupervisor" FromRole="ProjectSupervisor" ToRole="MeetingRecord" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="StudentNumber" />
+    </Key>
+    <Property Name="StudentNumber" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Course" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="StudyYear" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Allocations" Relationship="ProgressTrackerModel.FK_Allocation_Student" FromRole="Student" ToRole="Allocation" />
+    <NavigationProperty Name="AspNetUser" Relationship="ProgressTrackerModel.FK_Student_AspNetUsers" FromRole="Student" ToRole="AspNetUser" />
+    <NavigationProperty Name="Events" Relationship="ProgressTrackerModel.FK_Event_Student" FromRole="Student" ToRole="Event" />
+    <NavigationProperty Name="MeetingRecords" Relationship="ProgressTrackerModel.FK_MeetingRecord_Student1" FromRole="Student" ToRole="MeetingRecord" />
+    <NavigationProperty Name="Milestone" Relationship="ProgressTrackerModel.FK_Milestone_Student1" FromRole="Student" ToRole="Milestone" />
+    <NavigationProperty Name="Project" Relationship="ProgressTrackerModel.FK_Project_Student" FromRole="Student" ToRole="Project" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Allocation_ProjectSupervisor">
+    <End Type="ProgressTrackerModel.ProjectSupervisor" Role="ProjectSupervisor" Multiplicity="1" />
+    <End Type="ProgressTrackerModel.Allocation" Role="Allocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectSupervisor">
+        <PropertyRef Name="StaffNumber" />
+      </Principal>
+      <Dependent Role="Allocation">
+        <PropertyRef Name="StaffNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Allocation_Student">
+    <End Type="ProgressTrackerModel.Student" Role="Student" Multiplicity="1" />
+    <End Type="ProgressTrackerModel.Allocation" Role="Allocation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentNumber" />
+      </Principal>
+      <Dependent Role="Allocation">
+        <PropertyRef Name="StudentNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Type="ProgressTrackerModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ProgressTrackerModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaim">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Type="ProgressTrackerModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ProgressTrackerModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogin">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProjectSupervisor_AspNetUsers">
+    <End Type="ProgressTrackerModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="ProgressTrackerModel.ProjectSupervisor" Role="ProjectSupervisor" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProjectSupervisor">
+        <PropertyRef Name="StaffNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Student_AspNetUsers">
+    <End Type="ProgressTrackerModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+    <End Type="ProgressTrackerModel.Student" Role="Student" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="StudentNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Document_Milestone">
+    <End Type="ProgressTrackerModel.Milestone" Role="Milestone" Multiplicity="1" />
+    <End Type="ProgressTrackerModel.Document" Role="Document" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Milestone">
+        <PropertyRef Name="MilestoneID" />
+      </Principal>
+      <Dependent Role="Document">
+        <PropertyRef Name="DocumentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Event_ProjectSupervisor">
+    <End Type="ProgressTrackerModel.ProjectSupervisor" Role="ProjectSupervisor" Multiplicity="0..1" />
+    <End Type="ProgressTrackerModel.Event" Role="Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectSupervisor">
+        <PropertyRef Name="StaffNumber" />
+      </Principal>
+      <Dependent Role="Event">
+        <PropertyRef Name="StaffNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Event_Student">
+    <End Type="ProgressTrackerModel.Student" Role="Student" Multiplicity="0..1" />
+    <End Type="ProgressTrackerModel.Event" Role="Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentNumber" />
+      </Principal>
+      <Dependent Role="Event">
+        <PropertyRef Name="StudentNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Milestone_Link">
+    <End Type="ProgressTrackerModel.Link" Role="Link" Multiplicity="1" />
+    <End Type="ProgressTrackerModel.Milestone" Role="Milestone" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Link">
+        <PropertyRef Name="LinkId" />
+      </Principal>
+      <Dependent Role="Milestone">
+        <PropertyRef Name="MilestoneID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MeetingRecord_Meeting">
+    <End Type="ProgressTrackerModel.Meeting" Role="Meeting" Multiplicity="1" />
+    <End Type="ProgressTrackerModel.MeetingRecord" Role="MeetingRecord" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Meeting">
+        <PropertyRef Name="StartTime" />
+      </Principal>
+      <Dependent Role="MeetingRecord">
+        <PropertyRef Name="StartTime" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MeetingRecord_ProjectSupervisor">
+    <End Type="ProgressTrackerModel.ProjectSupervisor" Role="ProjectSupervisor" Multiplicity="0..1" />
+    <End Type="ProgressTrackerModel.MeetingRecord" Role="MeetingRecord" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectSupervisor">
+        <PropertyRef Name="StaffNumber" />
+      </Principal>
+      <Dependent Role="MeetingRecord">
+        <PropertyRef Name="StaffNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MeetingRecord_Student1">
+    <End Type="ProgressTrackerModel.Student" Role="Student" Multiplicity="1" />
+    <End Type="ProgressTrackerModel.MeetingRecord" Role="MeetingRecord" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentNumber" />
+      </Principal>
+      <Dependent Role="MeetingRecord">
+        <PropertyRef Name="StudentNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Milestone_Student1">
+    <End Type="ProgressTrackerModel.Student" Role="Student" Multiplicity="1" />
+    <End Type="ProgressTrackerModel.Milestone" Role="Milestone" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentNumber" />
+      </Principal>
+      <Dependent Role="Milestone">
+        <PropertyRef Name="MilestoneID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Project_Student">
+    <End Type="ProgressTrackerModel.Student" Role="Student" Multiplicity="1" />
+    <End Type="ProgressTrackerModel.Project" Role="Project" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentNumber" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="ProjectNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Type="ProgressTrackerModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+    <End Type="ProgressTrackerModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+  </Association>
+</Schema>
