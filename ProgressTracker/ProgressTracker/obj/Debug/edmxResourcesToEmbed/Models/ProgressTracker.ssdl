@@ -138,6 +138,7 @@
     <Property Name="ParentId" Type="int" />
     <Property Name="Progress" Type="float" />
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentNumber" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="Project">
     <Key>

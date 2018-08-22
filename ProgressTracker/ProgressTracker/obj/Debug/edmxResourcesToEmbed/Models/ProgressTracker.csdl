@@ -261,6 +261,7 @@
     <Property Name="ParentId" Type="Int32" />
     <Property Name="Progress" Type="Double" />
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Student" Relationship="ProgressTrackerModel.FK_Milestone_Student1" FromRole="Milestone" ToRole="Student" />
   </EntityType>
   <EntityType Name="Project">

@@ -9,6 +9,7 @@ namespace ProgressTracker.DTO
     public class TaskDto
     {
         public int id { get; set; }
+        public string userid { get; set; }
         public string text { get; set; }
         public string start_date { get; set; }
         public int duration { get; set; }
@@ -23,6 +24,7 @@ namespace ProgressTracker.DTO
 
         public static explicit operator TaskDto(Milestone task)
         {
+            
             return new TaskDto
             {
                 id = task.Id,
@@ -31,6 +33,7 @@ namespace ProgressTracker.DTO
                 duration = (int)task.Duration,
                 parent = task.ParentId,
                 type = task.Type,
+                userid=task.StudentNumber,
                 progress = (float)task.Progress
             };
         }
@@ -44,6 +47,7 @@ namespace ProgressTracker.DTO
                 StartDate = DateTime.Parse(task.start_date, System.Globalization.CultureInfo.InvariantCulture),
                 Duration = task.duration,
                 ParentId = task.parent,
+                StudentNumber=task.userid,
                 Type = task.type,
                 Progress = task.progress
             };

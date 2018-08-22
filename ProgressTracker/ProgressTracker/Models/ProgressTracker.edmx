@@ -143,6 +143,7 @@
           <Property Name="ParentId" Type="int" />
           <Property Name="Progress" Type="float" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentNumber" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -739,6 +740,7 @@
           <Property Name="ParentId" Type="Int32" />
           <Property Name="Progress" Type="Double" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Student" Relationship="ProgressTrackerModel.FK_Milestone_Student1" FromRole="Milestone" ToRole="Student" />
         </EntityType>
         <EntityType Name="Project">
@@ -1106,6 +1108,7 @@
           <EntitySetMapping Name="Milestones">
             <EntityTypeMapping TypeName="ProgressTrackerModel.Milestone">
               <MappingFragment StoreEntitySet="Milestone">
+                <ScalarProperty Name="StudentNumber" ColumnName="StudentNumber" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Progress" ColumnName="Progress" />
                 <ScalarProperty Name="ParentId" ColumnName="ParentId" />

@@ -153,6 +153,7 @@
     <EntitySetMapping Name="Milestones">
       <EntityTypeMapping TypeName="ProgressTrackerModel.Milestone">
         <MappingFragment StoreEntitySet="Milestone">
+          <ScalarProperty Name="StudentNumber" ColumnName="StudentNumber" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Progress" ColumnName="Progress" />
           <ScalarProperty Name="ParentId" ColumnName="ParentId" />

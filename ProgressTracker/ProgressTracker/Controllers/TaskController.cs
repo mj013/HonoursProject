@@ -1,4 +1,5 @@
-﻿using ProgressTracker.DTO;
+﻿using Microsoft.AspNet.Identity;
+using ProgressTracker.DTO;
 using ProgressTracker.Models;
 using System;
 using System.Collections.Generic;
@@ -60,16 +61,22 @@ namespace ProgressTracker.Controllers
         [System.Web.Http.HttpPost]
         public IHttpActionResult CreateTask(TaskDto taskDto)
         {
+            var userID = User.Identity.GetUserId();
+            Milestone task = new Milestone();
             using (var dc = new ProgressTrackerEntities())
             {
+                
                 var newTask = (Milestone)taskDto;
-
+                newTask.StudentNumber = userID;
+                
                 dc.Milestones.Add(newTask);
+                
                 dc.SaveChanges();
 
                 return Ok(new
                 {
                     tid = newTask.Id,
+                    
                     action = "inserted"
                 });
             }
