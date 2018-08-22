@@ -1,6 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ProgressTrackerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="ProgressTrackerEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ProgressTrackerModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ProgressTrackerModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
     <EntitySet Name="C__MigrationHistory" EntityType="ProgressTrackerModel.C__MigrationHistory" />
     <EntitySet Name="Allocations" EntityType="ProgressTrackerModel.Allocation" />
     <EntitySet Name="AspNetRoles" EntityType="ProgressTrackerModel.AspNetRole" />
@@ -41,10 +71,6 @@
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
       <End Role="Student" EntitySet="Students" />
     </AssociationSet>
-    <AssociationSet Name="FK_Document_Milestone" Association="ProgressTrackerModel.FK_Document_Milestone">
-      <End Role="Milestone" EntitySet="Milestones" />
-      <End Role="Document" EntitySet="Documents" />
-    </AssociationSet>
     <AssociationSet Name="FK_Event_ProjectSupervisor" Association="ProgressTrackerModel.FK_Event_ProjectSupervisor">
       <End Role="ProjectSupervisor" EntitySet="ProjectSupervisors" />
       <End Role="Event" EntitySet="Events" />
@@ -52,10 +78,6 @@
     <AssociationSet Name="FK_Event_Student" Association="ProgressTrackerModel.FK_Event_Student">
       <End Role="Student" EntitySet="Students" />
       <End Role="Event" EntitySet="Events" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Milestone_Link" Association="ProgressTrackerModel.FK_Milestone_Link">
-      <End Role="Link" EntitySet="Links" />
-      <End Role="Milestone" EntitySet="Milestones" />
     </AssociationSet>
     <AssociationSet Name="FK_MeetingRecord_Meeting" Association="ProgressTrackerModel.FK_MeetingRecord_Meeting">
       <End Role="Meeting" EntitySet="Meetings" />
@@ -82,6 +104,17 @@
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
     </AssociationSet>
   </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
   <EntityType Name="C__MigrationHistory">
     <Key>
       <PropertyRef Name="MigrationId" />
@@ -165,7 +198,6 @@
     <Property Name="DocumentName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="FileExtension" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="ContentType" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Milestone" Relationship="ProgressTrackerModel.FK_Document_Milestone" FromRole="Document" ToRole="Milestone" />
   </EntityType>
   <EntityType Name="Event">
     <Key>
@@ -187,11 +219,10 @@
     <Key>
       <PropertyRef Name="LinkId" />
     </Key>
-    <Property Name="LinkId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="LinkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Type" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="SourceTaskId" Type="Int32" />
     <Property Name="TargetTaskId" Type="Int32" />
-    <NavigationProperty Name="Milestone" Relationship="ProgressTrackerModel.FK_Milestone_Link" FromRole="Link" ToRole="Milestone" />
   </EntityType>
   <EntityType Name="Meeting">
     <Key>
@@ -219,15 +250,17 @@
   </EntityType>
   <EntityType Name="Milestone">
     <Key>
-      <PropertyRef Name="MilestoneID" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="MilestoneID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="ProjectNumber" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Document" Relationship="ProgressTrackerModel.FK_Document_Milestone" FromRole="Milestone" ToRole="Document" />
-    <NavigationProperty Name="Link" Relationship="ProgressTrackerModel.FK_Milestone_Link" FromRole="Milestone" ToRole="Link" />
+    <Property Name="MilestoneID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Text" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="Duration" Type="Int32" />
+    <Property Name="ProjectNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ParentId" Type="Int32" />
+    <Property Name="Progress" Type="Double" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <NavigationProperty Name="Student" Relationship="ProgressTrackerModel.FK_Milestone_Student1" FromRole="Milestone" ToRole="Student" />
   </EntityType>
   <EntityType Name="Project">
@@ -260,7 +293,7 @@
     <NavigationProperty Name="AspNetUser" Relationship="ProgressTrackerModel.FK_Student_AspNetUsers" FromRole="Student" ToRole="AspNetUser" />
     <NavigationProperty Name="Events" Relationship="ProgressTrackerModel.FK_Event_Student" FromRole="Student" ToRole="Event" />
     <NavigationProperty Name="MeetingRecords" Relationship="ProgressTrackerModel.FK_MeetingRecord_Student1" FromRole="Student" ToRole="MeetingRecord" />
-    <NavigationProperty Name="Milestone" Relationship="ProgressTrackerModel.FK_Milestone_Student1" FromRole="Student" ToRole="Milestone" />
+    <NavigationProperty Name="Milestones" Relationship="ProgressTrackerModel.FK_Milestone_Student1" FromRole="Student" ToRole="Milestone" />
     <NavigationProperty Name="Project" Relationship="ProgressTrackerModel.FK_Project_Student" FromRole="Student" ToRole="Project" />
   </EntityType>
   <EntityType Name="sysdiagram">
@@ -349,18 +382,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Document_Milestone">
-    <End Type="ProgressTrackerModel.Milestone" Role="Milestone" Multiplicity="1" />
-    <End Type="ProgressTrackerModel.Document" Role="Document" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Milestone">
-        <PropertyRef Name="MilestoneID" />
-      </Principal>
-      <Dependent Role="Document">
-        <PropertyRef Name="DocumentID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Event_ProjectSupervisor">
     <End Type="ProgressTrackerModel.ProjectSupervisor" Role="ProjectSupervisor" Multiplicity="0..1" />
     <End Type="ProgressTrackerModel.Event" Role="Event" Multiplicity="*" />
@@ -382,18 +403,6 @@
       </Principal>
       <Dependent Role="Event">
         <PropertyRef Name="StudentNumber" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Milestone_Link">
-    <End Type="ProgressTrackerModel.Link" Role="Link" Multiplicity="1" />
-    <End Type="ProgressTrackerModel.Milestone" Role="Milestone" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Link">
-        <PropertyRef Name="LinkId" />
-      </Principal>
-      <Dependent Role="Milestone">
-        <PropertyRef Name="MilestoneID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -434,8 +443,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Milestone_Student1">
-    <End Type="ProgressTrackerModel.Student" Role="Student" Multiplicity="1" />
-    <End Type="ProgressTrackerModel.Milestone" Role="Milestone" Multiplicity="0..1" />
+    <End Type="ProgressTrackerModel.Student" Role="Student" Multiplicity="0..1" />
+    <End Type="ProgressTrackerModel.Milestone" Role="Milestone" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Student">
         <PropertyRef Name="StudentNumber" />

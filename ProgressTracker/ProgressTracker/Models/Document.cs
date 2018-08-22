@@ -18,7 +18,5 @@ namespace ProgressTracker.Models
         public string DocumentName { get; set; }
         public string FileExtension { get; set; }
         public string ContentType { get; set; }
-    
-        public virtual Milestone Milestone { get; set; }
     }
 }

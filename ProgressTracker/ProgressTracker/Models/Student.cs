@@ -20,6 +20,7 @@ namespace ProgressTracker.Models
             this.Allocations = new HashSet<Allocation>();
             this.Events = new HashSet<Event>();
             this.MeetingRecords = new HashSet<MeetingRecord>();
+            this.Milestones = new HashSet<Milestone>();
         }
     
         public string StudentNumber { get; set; }
@@ -33,7 +34,8 @@ namespace ProgressTracker.Models
         public virtual ICollection<Event> Events { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MeetingRecord> MeetingRecords { get; set; }
-        public virtual Milestone Milestone { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Milestone> Milestones { get; set; }
         public virtual Project Project { get; set; }
     }
 }

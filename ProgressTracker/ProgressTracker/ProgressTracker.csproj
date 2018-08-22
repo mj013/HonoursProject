@@ -50,6 +50,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -58,6 +61,12 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -197,9 +206,17 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DataController.cs" />
+    <Compile Include="Controllers\GanttController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LinkController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TaskController.cs" />
+    <Compile Include="DTO\GanttDto.cs" />
+    <Compile Include="DTO\LinkDto.cs" />
+    <Compile Include="DTO\TaskDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -261,6 +278,12 @@
       <DependentUpon>ProgressTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProjectSupervisor.cs">
+      <DependentUpon>ProgressTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ProgressTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>ProgressTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Student.cs">
@@ -386,6 +409,20 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dhtmlxgantt\dhtmlxgantt_broadway.css" />
+    <Content Include="Content\dhtmlxgantt\dhtmlxgantt_contrast_black.css" />
+    <Content Include="Content\dhtmlxgantt\dhtmlxgantt_contrast_white.css" />
+    <Content Include="Content\dhtmlxgantt\dhtmlxgantt_material.css" />
+    <Content Include="Content\dhtmlxgantt\dhtmlxgantt_meadow.css" />
+    <Content Include="Content\dhtmlxgantt\dhtmlxgantt_skyblue.css" />
+    <Content Include="Content\dhtmlxgantt\dhtmlxgantt_terrace.css" />
+    <Content Include="Content\dhtmlxgantt\sources\dhtmlxgantt_broadway.css" />
+    <Content Include="Content\dhtmlxgantt\sources\dhtmlxgantt_contrast_black.css" />
+    <Content Include="Content\dhtmlxgantt\sources\dhtmlxgantt_contrast_white.css" />
+    <Content Include="Content\dhtmlxgantt\sources\dhtmlxgantt_material.css" />
+    <Content Include="Content\dhtmlxgantt\sources\dhtmlxgantt_meadow.css" />
+    <Content Include="Content\dhtmlxgantt\sources\dhtmlxgantt_skyblue.css" />
+    <Content Include="Content\dhtmlxgantt\sources\dhtmlxgantt_terrace.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -439,7 +476,133 @@
     <Content Include="obj\Debug\ProgressTracker.csproj.CoreCompileInputs.cache" />
     <Content Include="obj\Debug\ProgressTracker.csprojAssemblyReference.cache" />
     <Content Include="obj\Release\ProgressTracker.csproj.CoreCompileInputs.cache" />
+    <Content Include="Scripts\dhtmlxgantt\dhtmlxgantt.js" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_csp.js" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_fullscreen.js" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_keyboard_navigation.js" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_marker.js" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_multiselect.js" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_quick_info.js" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_smart_rendering.js" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_tooltip.js" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_undo.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_ar.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_be.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_ca.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_cn.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_cs.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_da.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_de.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_el.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_es.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_fa.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_fi.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_fr.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_he.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_hr.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_hu.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_id.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_it.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_jp.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_kr.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_nb.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_nl.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_no.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_pl.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_pt.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_ro.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_ru.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_si.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_sk.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_sv.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_tr.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_ua.js" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_ua.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_tr.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_sv.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_sk.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_si.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_ru.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_ro.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_pt.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_pl.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_no.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_nl.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_nb.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_kr.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_jp.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_it.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_id.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_hu.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_hr.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_he.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_fr.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_fi.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_fa.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_es.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_el.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_de.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_da.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_cs.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_cn.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_ca.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_be.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale_ar.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\locale\locale.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_undo.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_tooltip.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_smart_rendering.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_quick_info.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_multiselect.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_marker.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_keyboard_navigation.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_fullscreen.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\ext\dhtmlxgantt_csp.js.map" />
+    <Content Include="Scripts\dhtmlxgantt\dhtmlxgantt.js.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\dhtmlxgantt.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\ext\dhtmlxgantt_csp.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\ext\dhtmlxgantt_fullscreen.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\ext\dhtmlxgantt_keyboard_navigation.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\ext\dhtmlxgantt_marker.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\ext\dhtmlxgantt_multiselect.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\ext\dhtmlxgantt_quick_info.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\ext\dhtmlxgantt_smart_rendering.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\ext\dhtmlxgantt_tooltip.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\ext\dhtmlxgantt_undo.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_ar.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_be.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_ca.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_cn.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_cs.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_da.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_de.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_el.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_es.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_fa.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_fi.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_fr.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_he.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_hr.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_hu.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_id.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_it.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_jp.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_kr.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_nb.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_nl.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_no.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_pl.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_pt.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_ro.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_ru.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_si.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_sk.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_sv.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_tr.js" />
+    <Content Include="Scripts\dhtmlxgantt\sources\locale\locale_ua.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -486,6 +649,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\RegisterSupervisor.cshtml" />
     <Content Include="Views\Account\RegisterStudent.cshtml" />
+    <Content Include="Views\Gantt\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

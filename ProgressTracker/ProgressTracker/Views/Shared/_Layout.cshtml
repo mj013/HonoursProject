@@ -22,8 +22,22 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+                    @if (Request.IsAuthenticated && User.IsInRole("Student"))
+                    {
+                        <li>@Html.ActionLink("My Plan", "Index", "Gantt")</li>
+                        <li>@Html.ActionLink("Milestones", "Milestones", "Home")</li>
+                        <li>@Html.ActionLink("Progress", "Progress", "Home")</li>
+                        <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
+                    }
+                    @if (Request.IsAuthenticated && User.IsInRole("Supervisor"))
+                    {
+
+                        <li>@Html.ActionLink("My Students", "MyPlan", "Milestones")</li>
+                        <li>@Html.ActionLink("Students Progress", "MyPlan", "Progress")</li>
+                        <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
+                    }
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

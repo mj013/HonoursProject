@@ -14,11 +14,9 @@ namespace ProgressTracker.Models
     
     public partial class Link
     {
-        public string LinkId { get; set; }
+        public int LinkId { get; set; }
         public string Type { get; set; }
         public Nullable<int> SourceTaskId { get; set; }
         public Nullable<int> TargetTaskId { get; set; }
-    
-        public virtual Milestone Milestone { get; set; }
     }
 }

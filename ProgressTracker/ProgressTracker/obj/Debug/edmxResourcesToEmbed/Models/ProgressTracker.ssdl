@@ -100,7 +100,7 @@
     <Key>
       <PropertyRef Name="LinkId" />
     </Key>
-    <Property Name="LinkId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="LinkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Type" Type="nvarchar" MaxLength="200" />
     <Property Name="SourceTaskId" Type="int" />
     <Property Name="TargetTaskId" Type="int" />
@@ -127,13 +127,17 @@
   </EntityType>
   <EntityType Name="Milestone">
     <Key>
-      <PropertyRef Name="MilestoneID" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="MilestoneID" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
-    <Property Name="StartDate" Type="datetime" Nullable="false" />
-    <Property Name="EndDate" Type="datetime" Nullable="false" />
-    <Property Name="ProjectNumber" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="MilestoneID" Type="nvarchar" MaxLength="128" />
+    <Property Name="Text" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="StartDate" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="Duration" Type="int" />
+    <Property Name="ProjectNumber" Type="nvarchar" MaxLength="128" />
+    <Property Name="Type" Type="nvarchar" MaxLength="200" />
+    <Property Name="ParentId" Type="int" />
+    <Property Name="Progress" Type="float" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="Project">
     <Key>
@@ -247,18 +251,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Document_Milestone">
-    <End Role="Milestone" Type="Self.Milestone" Multiplicity="1" />
-    <End Role="Document" Type="Self.Document" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Milestone">
-        <PropertyRef Name="MilestoneID" />
-      </Principal>
-      <Dependent Role="Document">
-        <PropertyRef Name="DocumentID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Event_ProjectSupervisor">
     <End Role="ProjectSupervisor" Type="Self.ProjectSupervisor" Multiplicity="0..1" />
     <End Role="Event" Type="Self.Event" Multiplicity="*" />
@@ -319,21 +311,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Milestone_Link">
-    <End Role="Link" Type="Self.Link" Multiplicity="1" />
-    <End Role="Milestone" Type="Self.Milestone" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Link">
-        <PropertyRef Name="LinkId" />
-      </Principal>
-      <Dependent Role="Milestone">
-        <PropertyRef Name="MilestoneID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Milestone_Student1">
-    <End Role="Student" Type="Self.Student" Multiplicity="1" />
-    <End Role="Milestone" Type="Self.Milestone" Multiplicity="0..1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+    <End Role="Milestone" Type="Self.Milestone" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Student">
         <PropertyRef Name="StudentNumber" />
@@ -379,6 +359,37 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="ProgressTrackerModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Allocation" EntityType="Self.Allocation" Schema="dbo" store:Type="Tables" />
@@ -421,10 +432,6 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
     </AssociationSet>
-    <AssociationSet Name="FK_Document_Milestone" Association="Self.FK_Document_Milestone">
-      <End Role="Milestone" EntitySet="Milestone" />
-      <End Role="Document" EntitySet="Document" />
-    </AssociationSet>
     <AssociationSet Name="FK_Event_ProjectSupervisor" Association="Self.FK_Event_ProjectSupervisor">
       <End Role="ProjectSupervisor" EntitySet="ProjectSupervisor" />
       <End Role="Event" EntitySet="Event" />
@@ -444,10 +451,6 @@
     <AssociationSet Name="FK_MeetingRecord_Student1" Association="Self.FK_MeetingRecord_Student1">
       <End Role="Student" EntitySet="Student" />
       <End Role="MeetingRecord" EntitySet="MeetingRecord" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Milestone_Link" Association="Self.FK_Milestone_Link">
-      <End Role="Link" EntitySet="Link" />
-      <End Role="Milestone" EntitySet="Milestone" />
     </AssociationSet>
     <AssociationSet Name="FK_Milestone_Student1" Association="Self.FK_Milestone_Student1">
       <End Role="Student" EntitySet="Student" />

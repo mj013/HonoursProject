@@ -15,13 +15,15 @@ namespace ProgressTracker.Models
     public partial class Milestone
     {
         public string MilestoneID { get; set; }
-        public string Name { get; set; }
+        public string Text { get; set; }
         public System.DateTime StartDate { get; set; }
-        public System.DateTime EndDate { get; set; }
+        public Nullable<int> Duration { get; set; }
         public string ProjectNumber { get; set; }
+        public string Type { get; set; }
+        public Nullable<int> ParentId { get; set; }
+        public Nullable<double> Progress { get; set; }
+        public int Id { get; set; }
     
-        public virtual Document Document { get; set; }
-        public virtual Link Link { get; set; }
         public virtual Student Student { get; set; }
     }
 }
