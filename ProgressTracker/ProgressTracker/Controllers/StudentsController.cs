@@ -49,6 +49,7 @@ namespace ProgressTracker.Controllers
                              where userrow.StudentNumber == userId
                              select rowM;
                 //return chart for that user
+                
 
             }
 

@@ -213,6 +213,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LinkController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MilestonesController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="DTO\GanttDto.cs" />
@@ -656,6 +657,12 @@
     <Content Include="Views\Students\Details.cshtml" />
     <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
+    <Content Include="Views\Milestones\Create.cshtml" />
+    <Content Include="Views\Milestones\Delete.cshtml" />
+    <Content Include="Views\Milestones\Details.cshtml" />
+    <Content Include="Views\Milestones\Edit.cshtml" />
+    <Content Include="Views\Milestones\Index.cshtml" />
+    <Content Include="Views\Milestones\ViewMilestones.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

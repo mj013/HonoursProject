@@ -26,7 +26,7 @@
                     @if (Request.IsAuthenticated && User.IsInRole("Student"))
                     {
                         <li>@Html.ActionLink("My Plan", "Index", "Gantt")</li>
-                        <li>@Html.ActionLink("Milestones", "Milestones", "Home")</li>
+                        <li>@Html.ActionLink("Milestones", "ViewMilestones", "Milestones")</li>
                         <li>@Html.ActionLink("Progress", "Progress", "Home")</li>
                         <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
                     }
