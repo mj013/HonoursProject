@@ -17,11 +17,21 @@ namespace ProgressTracker.Controllers
         // GET api/Task
         public IEnumerable<TaskDto> Get()
         {
+            List<Milestone> data = new List<Milestone>();
+            var userID = User.Identity.GetUserId();
+            
             using (var dc = new ProgressTrackerEntities())
             {
-                return dc.Milestones
-                .ToList()
-                .Select(t => (TaskDto)t);
+                var milestones = from rowM in dc.Milestones
+                                 where rowM.StudentNumber == userID
+                                 select rowM;
+                data = milestones.ToList();
+
+                return data.Select(t => (TaskDto)t);
+               
+                //return dc.Milestones
+                //.ToList()
+                //.Select(t => (TaskDto)t);
             }
 
         }
@@ -30,6 +40,7 @@ namespace ProgressTracker.Controllers
         [System.Web.Http.HttpGet]
         public TaskDto Get(int id)
         {
+            var userID = User.Identity.GetUserId();
             using (var dc = new ProgressTrackerEntities())
             {
                 return (TaskDto)dc
@@ -43,6 +54,7 @@ namespace ProgressTracker.Controllers
         [System.Web.Http.HttpPut]
         public IHttpActionResult EditTask(int id, TaskDto taskDto)
         {
+            var userID = User.Identity.GetUserId();
             using (var dc = new ProgressTrackerEntities())
             {
                 var updatedTask = (Milestone)taskDto;
@@ -77,6 +89,7 @@ namespace ProgressTracker.Controllers
                 {
                     tid = newTask.Id,
                     
+                    
                     action = "inserted"
                 });
             }
@@ -87,6 +100,7 @@ namespace ProgressTracker.Controllers
         [System.Web.Http.HttpDelete]
         public IHttpActionResult DeleteTask(int id)
         {
+            var userID = User.Identity.GetUserId();
             using (var dc = new ProgressTrackerEntities())
             {
                 var task = dc.Milestones.Find(id);
@@ -107,6 +121,7 @@ namespace ProgressTracker.Controllers
 
         protected override void Dispose(bool disposing)
         {
+            var userID = User.Identity.GetUserId();
             using (var dc = new ProgressTrackerEntities())
             {
                 if (disposing)
