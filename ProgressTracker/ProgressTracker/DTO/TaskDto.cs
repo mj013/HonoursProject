@@ -21,6 +21,7 @@ namespace ProgressTracker.DTO
             get { return true; }
             set { }
         }
+        public string target { get; set; }
 
         public static explicit operator TaskDto(Milestone task)
         {

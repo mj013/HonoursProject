@@ -106,9 +106,8 @@
     <EntitySetMapping Name="Events">
       <EntityTypeMapping TypeName="ProgressTrackerModel.Event">
         <MappingFragment StoreEntitySet="Event">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="ThemeColor" ColumnName="ThemeColor" />
-          <ScalarProperty Name="StaffNumber" ColumnName="StaffNumber" />
-          <ScalarProperty Name="StudentNumber" ColumnName="StudentNumber" />
           <ScalarProperty Name="Subject" ColumnName="Subject" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="EndTime" ColumnName="EndTime" />
@@ -153,6 +152,7 @@
     <EntitySetMapping Name="Milestones">
       <EntityTypeMapping TypeName="ProgressTrackerModel.Milestone">
         <MappingFragment StoreEntitySet="Milestone">
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
           <ScalarProperty Name="StudentNumber" ColumnName="StudentNumber" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Progress" ColumnName="Progress" />
@@ -178,6 +178,7 @@
     <EntitySetMapping Name="ProjectSupervisors">
       <EntityTypeMapping TypeName="ProgressTrackerModel.ProjectSupervisor">
         <MappingFragment StoreEntitySet="ProjectSupervisor">
+          <ScalarProperty Name="calId" ColumnName="calId" />
           <ScalarProperty Name="StaffNumber" ColumnName="StaffNumber" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -185,6 +186,7 @@
     <EntitySetMapping Name="Students">
       <EntityTypeMapping TypeName="ProgressTrackerModel.Student">
         <MappingFragment StoreEntitySet="Student">
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
           <ScalarProperty Name="StudyYear" ColumnName="StudyYear" />
           <ScalarProperty Name="Course" ColumnName="Course" />
           <ScalarProperty Name="StudentNumber" ColumnName="StudentNumber" />

@@ -1,4 +1,5 @@
-﻿using ProgressTracker.DTO;
+﻿using ProgressTracker.App_Start;
+using ProgressTracker.DTO;
 using ProgressTracker.Models;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Web.Http;
 
 namespace ProgressTracker.Controllers
 {
+    [GanttAPIExceptionFilter]
     public class LinkController : ApiController
     {
 

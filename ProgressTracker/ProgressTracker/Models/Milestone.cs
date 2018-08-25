@@ -24,6 +24,7 @@ namespace ProgressTracker.Models
         public Nullable<double> Progress { get; set; }
         public int Id { get; set; }
         public string StudentNumber { get; set; }
+        public Nullable<int> SortOrder { get; set; }
     
         public virtual Student Student { get; set; }
     }

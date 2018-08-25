@@ -5,22 +5,22 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="f469083783504bf99eb34119df7d9bca" Name="Diagram1">
-        <EntityTypeShape EntityType="ProgressTrackerModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ProgressTrackerModel.Allocation" Width="1.5" PointX="7.5" PointY="5.125" />
-        <EntityTypeShape EntityType="ProgressTrackerModel.AspNetRole" Width="1.5" PointX="0.75" PointY="11.75" />
-        <EntityTypeShape EntityType="ProgressTrackerModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="17.375" />
-        <EntityTypeShape EntityType="ProgressTrackerModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="14.875" />
-        <EntityTypeShape EntityType="ProgressTrackerModel.AspNetUser" Width="1.5" PointX="3" PointY="10" />
-        <EntityTypeShape EntityType="ProgressTrackerModel.Document" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ProgressTrackerModel.Event" Width="1.5" PointX="10.5" PointY="7.625" />
-        <EntityTypeShape EntityType="ProgressTrackerModel.Link" Width="1.5" PointX="0.75" PointY="3.75" />
-        <EntityTypeShape EntityType="ProgressTrackerModel.Meeting" Width="1.5" PointX="8.25" PointY="2.25" />
-        <EntityTypeShape EntityType="ProgressTrackerModel.MeetingRecord" Width="1.5" PointX="10.5" PointY="3.625" />
-        <EntityTypeShape EntityType="ProgressTrackerModel.Milestone" Width="1.5" PointX="7.5" PointY="11" />
-        <EntityTypeShape EntityType="ProgressTrackerModel.Project" Width="1.5" PointX="7.5" PointY="8.375" />
-        <EntityTypeShape EntityType="ProgressTrackerModel.ProjectSupervisor" Width="1.5" PointX="5.25" PointY="5.625" />
-        <EntityTypeShape EntityType="ProgressTrackerModel.Student" Width="1.5" PointX="5.25" PointY="9.875" />
-        <EntityTypeShape EntityType="ProgressTrackerModel.sysdiagram" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ProgressTrackerModel.C__MigrationHistory" Width="1.5" PointX="2.875" PointY="0.75" />
+        <EntityTypeShape EntityType="ProgressTrackerModel.Allocation" Width="1.5" PointX="9.625" PointY="12.5" />
+        <EntityTypeShape EntityType="ProgressTrackerModel.AspNetRole" Width="1.5" PointX="2.875" PointY="10.375" />
+        <EntityTypeShape EntityType="ProgressTrackerModel.AspNetUserClaim" Width="1.5" PointX="7.375" PointY="12" />
+        <EntityTypeShape EntityType="ProgressTrackerModel.AspNetUserLogin" Width="1.5" PointX="7.375" PointY="5.375" />
+        <EntityTypeShape EntityType="ProgressTrackerModel.AspNetUser" Width="1.5" PointX="5.125" PointY="8.625" />
+        <EntityTypeShape EntityType="ProgressTrackerModel.Document" Width="1.5" PointX="4.875" PointY="0.75" />
+        <EntityTypeShape EntityType="ProgressTrackerModel.Event" Width="1.5" PointX="12.625" PointY="15" />
+        <EntityTypeShape EntityType="ProgressTrackerModel.Link" Width="1.5" PointX="2.875" PointY="3.75" />
+        <EntityTypeShape EntityType="ProgressTrackerModel.Meeting" Width="1.5" PointX="10.375" PointY="15.625" />
+        <EntityTypeShape EntityType="ProgressTrackerModel.MeetingRecord" Width="1.5" PointX="13.375" PointY="11.25" />
+        <EntityTypeShape EntityType="ProgressTrackerModel.Milestone" Width="1.5" PointX="11.25" PointY="7.875" />
+        <EntityTypeShape EntityType="ProgressTrackerModel.Project" Width="1.5" PointX="6.875" PointY="0.75" />
+        <EntityTypeShape EntityType="ProgressTrackerModel.ProjectSupervisor" Width="1.5" PointX="7.375" PointY="14.75" />
+        <EntityTypeShape EntityType="ProgressTrackerModel.Student" Width="1.5" PointX="7.375" PointY="8.125" />
+        <EntityTypeShape EntityType="ProgressTrackerModel.sysdiagram" Width="1.5" PointX="8.875" PointY="0.75" />
         <AssociationConnector Association="ProgressTrackerModel.FK_Allocation_ProjectSupervisor" />
         <AssociationConnector Association="ProgressTrackerModel.FK_Allocation_Student" />
         <AssociationConnector Association="ProgressTrackerModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
@@ -28,12 +28,11 @@
         <AssociationConnector Association="ProgressTrackerModel.FK_ProjectSupervisor_AspNetUsers" />
         <AssociationConnector Association="ProgressTrackerModel.FK_Student_AspNetUsers" />
         <AssociationConnector Association="ProgressTrackerModel.FK_Event_ProjectSupervisor" />
-        <AssociationConnector Association="ProgressTrackerModel.FK_Event_Student" />
+        <AssociationConnector Association="ProgressTrackerModel.FK_Event_Student1" />
         <AssociationConnector Association="ProgressTrackerModel.FK_MeetingRecord_Meeting" />
         <AssociationConnector Association="ProgressTrackerModel.FK_MeetingRecord_ProjectSupervisor" />
         <AssociationConnector Association="ProgressTrackerModel.FK_MeetingRecord_Student1" />
         <AssociationConnector Association="ProgressTrackerModel.FK_Milestone_Student1" />
-        <AssociationConnector Association="ProgressTrackerModel.FK_Project_Student" />
         <AssociationConnector Association="ProgressTrackerModel.AspNetUserRoles" />
       </Diagram>
     </edmx:Diagrams>

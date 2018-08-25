@@ -233,12 +233,13 @@ namespace ProgressTracker.Controllers
                             Course = model.Course,
                             StudyYear = model.StudyYear,
                             StudentNumber = id,
+                            ProjectName=model.ProjectName,
                         };
                         db.Students.Add(student);
                         db.SaveChanges();
 
 
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("AddProject", "Students");
 
                         //return RedirectToAction("SelectProject", "Projects");
                     }

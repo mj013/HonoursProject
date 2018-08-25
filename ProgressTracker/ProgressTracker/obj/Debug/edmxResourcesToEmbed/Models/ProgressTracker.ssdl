@@ -86,15 +86,14 @@
     <Key>
       <PropertyRef Name="EventID" />
     </Key>
-    <Property Name="EventID" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="isFullDay" Type="bit" Nullable="false" />
-    <Property Name="StartTime" Type="datetime" Nullable="false" />
-    <Property Name="EndTime" Type="datetime" />
-    <Property Name="Description" Type="nvarchar" MaxLength="200" Nullable="false" />
-    <Property Name="Subject" Type="nvarchar" MaxLength="200" Nullable="false" />
-    <Property Name="StudentNumber" Type="nvarchar" MaxLength="128" />
-    <Property Name="StaffNumber" Type="nvarchar" MaxLength="128" />
-    <Property Name="ThemeColor" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="EventID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="isFullDay" Type="bit" />
+    <Property Name="StartTime" Type="datetime2" Precision="7" />
+    <Property Name="EndTime" Type="datetime2" Precision="7" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="200" />
+    <Property Name="ThemeColor" Type="nvarchar" MaxLength="200" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="Link">
     <Key>
@@ -139,6 +138,7 @@
     <Property Name="Progress" Type="float" />
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="StudentNumber" Type="nvarchar" MaxLength="128" />
+    <Property Name="SortOrder" Type="int" />
   </EntityType>
   <EntityType Name="Project">
     <Key>
@@ -153,6 +153,7 @@
       <PropertyRef Name="StaffNumber" />
     </Key>
     <Property Name="StaffNumber" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="calId" Type="int" />
   </EntityType>
   <EntityType Name="Student">
     <Key>
@@ -161,6 +162,7 @@
     <Property Name="StudentNumber" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="Course" Type="nvarchar" MaxLength="200" Nullable="false" />
     <Property Name="StudyYear" Type="int" Nullable="false" />
+    <Property Name="ProjectName" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -260,11 +262,11 @@
         <PropertyRef Name="StaffNumber" />
       </Principal>
       <Dependent Role="Event">
-        <PropertyRef Name="StaffNumber" />
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Event_Student">
+  <Association Name="FK_Event_Student1">
     <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
     <End Role="Event" Type="Self.Event" Multiplicity="*" />
     <ReferentialConstraint>
@@ -272,7 +274,7 @@
         <PropertyRef Name="StudentNumber" />
       </Principal>
       <Dependent Role="Event">
-        <PropertyRef Name="StudentNumber" />
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -321,18 +323,6 @@
       </Principal>
       <Dependent Role="Milestone">
         <PropertyRef Name="MilestoneID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Project_Student">
-    <End Role="Student" Type="Self.Student" Multiplicity="1" />
-    <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Student">
-        <PropertyRef Name="StudentNumber" />
-      </Principal>
-      <Dependent Role="Project">
-        <PropertyRef Name="ProjectNumber" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -437,7 +427,7 @@
       <End Role="ProjectSupervisor" EntitySet="ProjectSupervisor" />
       <End Role="Event" EntitySet="Event" />
     </AssociationSet>
-    <AssociationSet Name="FK_Event_Student" Association="Self.FK_Event_Student">
+    <AssociationSet Name="FK_Event_Student1" Association="Self.FK_Event_Student1">
       <End Role="Student" EntitySet="Student" />
       <End Role="Event" EntitySet="Event" />
     </AssociationSet>
@@ -456,10 +446,6 @@
     <AssociationSet Name="FK_Milestone_Student1" Association="Self.FK_Milestone_Student1">
       <End Role="Student" EntitySet="Student" />
       <End Role="Milestone" EntitySet="Milestone" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Project_Student" Association="Self.FK_Project_Student">
-      <End Role="Student" EntitySet="Student" />
-      <End Role="Project" EntitySet="Project" />
     </AssociationSet>
     <AssociationSet Name="FK_ProjectSupervisor_AspNetUsers" Association="Self.FK_ProjectSupervisor_AspNetUsers">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />

@@ -26,6 +26,7 @@ namespace ProgressTracker.Models
         public string StudentNumber { get; set; }
         public string Course { get; set; }
         public int StudyYear { get; set; }
+        public string ProjectName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Allocation> Allocations { get; set; }
@@ -36,6 +37,5 @@ namespace ProgressTracker.Models
         public virtual ICollection<MeetingRecord> MeetingRecords { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Milestone> Milestones { get; set; }
-        public virtual Project Project { get; set; }
     }
 }

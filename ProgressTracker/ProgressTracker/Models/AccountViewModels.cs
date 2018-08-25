@@ -103,6 +103,11 @@ namespace ProgressTracker.Models
         [Display(Name = "Title")]
         public string Title { get; set; }
 
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "ProjectName")]
+        public string ProjectName { get; set; }
+
         [DataType(DataType.Text)]
         [Display(Name = "Course")]
         public string Course { get; set; }

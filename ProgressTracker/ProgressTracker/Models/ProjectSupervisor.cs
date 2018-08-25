@@ -23,6 +23,7 @@ namespace ProgressTracker.Models
         }
     
         public string StaffNumber { get; set; }
+        public Nullable<int> calId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Allocation> Allocations { get; set; }

@@ -64,6 +64,7 @@ namespace ProgressTracker.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var username = User.Identity.GetUserName();
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),

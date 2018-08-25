@@ -18,7 +18,7 @@ namespace ProgressTracker.Controllers
         // GET: Students
         public ActionResult Index()
         {
-            var students = db.Students.Include(s => s.AspNetUser).Include(s => s.Project);
+            var students = db.Students.Include(s => s.AspNetUser);
             return View(students.ToList());
         }
 
@@ -37,30 +37,10 @@ namespace ProgressTracker.Controllers
             return View(student);
         }
 
-
-        public ActionResult ViewPlan()
-        {
-            using (var db = new ProgressTrackerEntities())
-            {
-                Milestone data = new Milestone();
-                var userId = User.Identity.GetUserId();
-                var result = from rowM in db.Milestones
-                             join userrow in db.Students on rowM.StudentNumber equals userrow.StudentNumber
-                             where userrow.StudentNumber == userId
-                             select rowM;
-                //return chart for that user
-                
-
-            }
-
-            return View();
-        }
-
         // GET: Students/Create
         public ActionResult Create()
         {
             ViewBag.StudentNumber = new SelectList(db.AspNetUsers, "Id", "Email");
-            ViewBag.StudentNumber = new SelectList(db.Projects, "ProjectNumber", "ProjectName");
             return View();
         }
 
@@ -69,7 +49,7 @@ namespace ProgressTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StudentNumber,Course,StudyYear")] Student student)
+        public ActionResult Create([Bind(Include = "StudentNumber,Course,StudyYear,ProjectName")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +59,6 @@ namespace ProgressTracker.Controllers
             }
 
             ViewBag.StudentNumber = new SelectList(db.AspNetUsers, "Id", "Email", student.StudentNumber);
-            ViewBag.StudentNumber = new SelectList(db.Projects, "ProjectNumber", "ProjectName", student.StudentNumber);
             return View(student);
         }
 
@@ -96,7 +75,6 @@ namespace ProgressTracker.Controllers
                 return HttpNotFound();
             }
             ViewBag.StudentNumber = new SelectList(db.AspNetUsers, "Id", "Email", student.StudentNumber);
-            ViewBag.StudentNumber = new SelectList(db.Projects, "ProjectNumber", "ProjectName", student.StudentNumber);
             return View(student);
         }
 
@@ -105,7 +83,7 @@ namespace ProgressTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StudentNumber,Course,StudyYear")] Student student)
+        public ActionResult Edit([Bind(Include = "StudentNumber,Course,StudyYear,ProjectName")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -114,9 +92,60 @@ namespace ProgressTracker.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.StudentNumber = new SelectList(db.AspNetUsers, "Id", "Email", student.StudentNumber);
-            ViewBag.StudentNumber = new SelectList(db.Projects, "ProjectNumber", "ProjectName", student.StudentNumber);
             return View(student);
         }
+        [Authorize(Roles = "Student")]
+        // GET: Students/Edit/5
+        public ActionResult AddProject()
+        {
+            string id = User.Identity.GetUserId();
+            using (var db = new ProgressTrackerEntities())
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Student student = db.Students.Find(id);
+                if (student == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.StudentNumber = new SelectList(db.AspNetUsers, "Id", "Email", student.StudentNumber);
+                return View(student);
+            }
+               
+        }
+
+        [Authorize(Roles = "Student")]
+
+        // POST: Students/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddProject([Bind(Include = "StudentNumber,Course,StudyYear,ProjectName")] Student student)
+        {
+            string id = User.Identity.GetUserId();
+            
+            using (var db = new ProgressTrackerEntities())
+            {
+                
+                var currentUser = db.Students.Find(student.StudentNumber);
+                if (ModelState.IsValid)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.Entry(student).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                }
+                ViewBag.StudentNumber = new SelectList(db.AspNetUsers, "Id", "Email", student.StudentNumber);
+                return View(student);
+            }
+               
+        }
+
 
         // GET: Students/Delete/5
         public ActionResult Delete(string id)

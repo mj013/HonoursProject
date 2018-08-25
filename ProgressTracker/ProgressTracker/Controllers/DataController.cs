@@ -1,4 +1,5 @@
-﻿using ProgressTracker.DTO;
+﻿using ProgressTracker.App_Start;
+using ProgressTracker.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace ProgressTracker.Controllers
     public class DataController : ApiController
     {
         // GET api/
+        [GanttAPIExceptionFilter]
         [System.Web.Http.HttpGet]
         public GanttDto Get()
         {
