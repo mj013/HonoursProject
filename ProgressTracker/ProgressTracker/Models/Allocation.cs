@@ -17,6 +17,7 @@ namespace ProgressTracker.Models
         public string StudentNumber { get; set; }
         public string AllId { get; set; }
         public string StaffNumber { get; set; }
+        public int Id { get; set; }
     
         public virtual ProjectSupervisor ProjectSupervisor { get; set; }
         public virtual Student Student { get; set; }

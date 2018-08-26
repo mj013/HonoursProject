@@ -38,6 +38,7 @@
     <EntitySetMapping Name="Allocations">
       <EntityTypeMapping TypeName="ProgressTrackerModel.Allocation">
         <MappingFragment StoreEntitySet="Allocation">
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="StaffNumber" ColumnName="StaffNumber" />
           <ScalarProperty Name="AllId" ColumnName="AllId" />
           <ScalarProperty Name="StudentNumber" ColumnName="StudentNumber" />

@@ -29,11 +29,14 @@
                         <li>@Html.ActionLink("Milestones", "ViewMilestones", "Milestones")</li>
                         <li>@Html.ActionLink("Progress", "Progress", "Home")</li>
                         <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
+                        <li>@Html.ActionLink("Select Supervisor", "SelectSupervisors", "ProjectSupervisors")</li>
+
+
                     }
-                    @if (Request.IsAuthenticated && User.IsInRole("Supervisor"))
+                    @if (Request.IsAuthenticated && User.IsInRole("ProjectSupervisor"))
                     {
 
-                        <li>@Html.ActionLink("My Students", "MyPlan", "Milestones")</li>
+                        <li>@Html.ActionLink("My Students", "ViewMyStudents", "ProjectSupervisors")</li>
                         <li>@Html.ActionLink("Students Progress", "MyPlan", "Progress")</li>
                         <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
                     }

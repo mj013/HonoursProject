@@ -12,11 +12,12 @@
   </EntityType>
   <EntityType Name="Allocation">
     <Key>
-      <PropertyRef Name="AllId" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="StudentNumber" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="AllId" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="StaffNumber" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="StudentNumber" Type="nvarchar" MaxLength="128" />
+    <Property Name="AllId" Type="nvarchar" MaxLength="128" />
+    <Property Name="StaffNumber" Type="nvarchar" MaxLength="128" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="AspNetRoles">
     <Key>
@@ -175,7 +176,7 @@
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <Association Name="FK_Allocation_ProjectSupervisor">
-    <End Role="ProjectSupervisor" Type="Self.ProjectSupervisor" Multiplicity="1" />
+    <End Role="ProjectSupervisor" Type="Self.ProjectSupervisor" Multiplicity="0..1" />
     <End Role="Allocation" Type="Self.Allocation" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="ProjectSupervisor">
@@ -187,7 +188,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Allocation_Student">
-    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
     <End Role="Allocation" Type="Self.Allocation" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Student">

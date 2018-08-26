@@ -216,6 +216,7 @@
     <Compile Include="Controllers\LinkController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MilestonesController.cs" />
+    <Compile Include="Controllers\ProjectSupervisorsController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="DTO\GanttDto.cs" />
@@ -668,10 +669,16 @@
     <Content Include="Views\Students\Index.cshtml" />
     <Content Include="Views\Students\AddProject.cshtml" />
     <Content Include="Views\Account\RegisterStudent.cshtml" />
+    <Content Include="Views\ProjectSupervisors\Create.cshtml" />
+    <Content Include="Views\ProjectSupervisors\Delete.cshtml" />
+    <Content Include="Views\ProjectSupervisors\Details.cshtml" />
+    <Content Include="Views\ProjectSupervisors\Edit.cshtml" />
+    <Content Include="Views\ProjectSupervisors\Index.cshtml" />
+    <Content Include="Views\ProjectSupervisors\SelectSupervisors.cshtml" />
+    <Content Include="Views\ProjectSupervisors\ViewMyStudents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ActionBase\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

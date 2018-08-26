@@ -123,11 +123,12 @@
   </EntityType>
   <EntityType Name="Allocation">
     <Key>
-      <PropertyRef Name="AllId" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="StudentNumber" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="AllId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="StaffNumber" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="StudentNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="AllId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="StaffNumber" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <NavigationProperty Name="ProjectSupervisor" Relationship="ProgressTrackerModel.FK_Allocation_ProjectSupervisor" FromRole="Allocation" ToRole="ProjectSupervisor" />
     <NavigationProperty Name="Student" Relationship="ProgressTrackerModel.FK_Allocation_Student" FromRole="Allocation" ToRole="Student" />
   </EntityType>
@@ -304,7 +305,7 @@
     <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <Association Name="FK_Allocation_ProjectSupervisor">
-    <End Type="ProgressTrackerModel.ProjectSupervisor" Role="ProjectSupervisor" Multiplicity="1" />
+    <End Type="ProgressTrackerModel.ProjectSupervisor" Role="ProjectSupervisor" Multiplicity="0..1" />
     <End Type="ProgressTrackerModel.Allocation" Role="Allocation" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="ProjectSupervisor">
@@ -316,7 +317,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Allocation_Student">
-    <End Type="ProgressTrackerModel.Student" Role="Student" Multiplicity="1" />
+    <End Type="ProgressTrackerModel.Student" Role="Student" Multiplicity="0..1" />
     <End Type="ProgressTrackerModel.Allocation" Role="Allocation" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Student">
