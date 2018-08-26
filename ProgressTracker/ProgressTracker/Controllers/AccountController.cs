@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ProgressTracker.Models;
+using ProgressTracker.Helpers;
 
 namespace ProgressTracker.Controllers
 {
@@ -18,6 +19,7 @@ namespace ProgressTracker.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+      // private  GenericPrincipalExtensions FullName;
 
         public AccountController()
         {
@@ -582,7 +584,16 @@ namespace ProgressTracker.Controllers
 
             base.Dispose(disposing);
         }
-
+        private async Task SignInAsync(ApplicationUser user, bool isPersistent)
+        {
+            //var helpe = new GenericPrincipalExtensions();
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            identity.AddClaim(new Claim("FullName", user.Name));
+            identity.AddClaim(new Claim("Surname", user.Surname));
+           // identity.AddClaim(new Claim("DateCreated", user.DateCreated.ToString("MM/dd/yyyy")));
+            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
+        }
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
@@ -641,5 +652,7 @@ namespace ProgressTracker.Controllers
             }
         }
         #endregion
+
+      
     }
 }

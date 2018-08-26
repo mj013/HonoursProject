@@ -25,9 +25,6 @@
 
                     @if (Request.IsAuthenticated && User.IsInRole("Student"))
                     {
-                        <li>@Html.ActionLink("Add Project", "AddProject", "Students")</li>
-
-
                         <li>@Html.ActionLink("My Plan", "Index", "Gantt")</li>
                         <li>@Html.ActionLink("Milestones", "ViewMilestones", "Milestones")</li>
                         <li>@Html.ActionLink("Progress", "Progress", "Home")</li>
