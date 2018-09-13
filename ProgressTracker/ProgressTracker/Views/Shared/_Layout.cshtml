@@ -29,7 +29,8 @@
                         <li>@Html.ActionLink("Milestones", "ViewMilestones", "Milestones")</li>
                         <li>@Html.ActionLink("Progress", "Progress", "Home")</li>
                         <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
-                        <li>@Html.ActionLink("Select Supervisor", "SelectSupervisors", "ProjectSupervisors")</li>
+                        <li>@Html.ActionLink("My Supervisor(s)", "ViewMySupervisor", "Students")</li>
+
 
 
                     }
@@ -39,6 +40,14 @@
                         <li>@Html.ActionLink("My Students", "ViewMyStudents", "ProjectSupervisors")</li>
                         <li>@Html.ActionLink("Students Progress", "MyPlan", "Progress")</li>
                         <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
+                    }
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+
+
+                        <li>@Html.ActionLink("View Students", "ViewAllStudents", "Students")</li>
+
+
                     }
 
                 </ul>

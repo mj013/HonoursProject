@@ -29,8 +29,8 @@ namespace ProgressTracker.Controllers
             using (ProgressTrackerEntities dc = new ProgressTrackerEntities())
             {
                 var mystudents = from rowS in db.AspNetUsers
-                                 join rowStudent in db.Students on rowS.Id equals rowStudent.StudentNumber
-                                 join rowAll in db.Allocations on rowStudent.StudentNumber equals rowAll.StudentNumber
+                                 join rowStudent in db.Students on rowS.Id equals rowStudent.UserID
+                                 join rowAll in db.Allocations on rowStudent.UserID equals rowAll.StudentNumber
                                  where rowAll.StaffNumber == staffId
                                  select rowS;
                 students = mystudents.ToList();
@@ -41,24 +41,37 @@ namespace ProgressTracker.Controllers
 
         }
 
-        public ActionResult SelectSupervisors()
+        public ActionResult ViewAllSupervisors()
         {
-            ProjectSupervisor projectSupervisor = new ProjectSupervisor();
-            List<AspNetUser> data = new List<AspNetUser>();
+            
+            List<AspNetUser> supervisors = new List<AspNetUser>();
             using (ProgressTrackerEntities dc = new ProgressTrackerEntities())
             {
+                var allsupervisors = from rowS in db.AspNetUsers
+                                 join rowSupervisor in db.ProjectSupervisors on rowS.Id equals rowSupervisor.UserID
+                                
+                                 where rowS.Id == rowSupervisor.UserID
+                                 select rowS;
+                supervisors = allsupervisors.ToList();
+                return View(supervisors);
 
-                var supervisors = from rowS in db.AspNetUsers
-                                  join rowSupervisor in db.ProjectSupervisors on rowS.Id equals rowSupervisor.StaffNumber
-                                  where rowS.Id == rowSupervisor.StaffNumber
-                                  select rowS;
 
-                data = supervisors.ToList();
-                return View(data);
             }
 
+        }
+        public ActionResult viewAll()
+        {
+            using (ProgressTrackerEntities dc = new ProgressTrackerEntities())
+            {
+                List<Object> mymodal = new List<object>();
+                mymodal.Add(db.Students.ToList());
+                mymodal.Add(db.ProjectSupervisors.ToList());
+                return View(mymodal);
+            }
 
         }
+
+
 
 
 
@@ -100,7 +113,7 @@ namespace ProgressTracker.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.StaffNumber = new SelectList(db.AspNetUsers, "Id", "Email", projectSupervisor.StaffNumber);
+            ViewBag.StaffNumber = new SelectList(db.AspNetUsers, "Id", "Email", projectSupervisor.UserID);
             return View(projectSupervisor);
         }
 
@@ -116,7 +129,7 @@ namespace ProgressTracker.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.StaffNumber = new SelectList(db.AspNetUsers, "Id", "Email", projectSupervisor.StaffNumber);
+            ViewBag.StaffNumber = new SelectList(db.AspNetUsers, "Id", "Email", projectSupervisor.UserID);
             return View(projectSupervisor);
         }
 
@@ -133,57 +146,10 @@ namespace ProgressTracker.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.StaffNumber = new SelectList(db.AspNetUsers, "Id", "Email", projectSupervisor.StaffNumber);
+            ViewBag.StaffNumber = new SelectList(db.AspNetUsers, "Id", "Email", projectSupervisor.UserID);
             return View(projectSupervisor);
         }
 
-        // GET: ProjectSupervisors/Edit/5
-        public ActionResult Select(string id)
-        {
-            string studID = User.Identity.GetUserId();
-            using (var db = new ProgressTrackerEntities())
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                ProjectSupervisor supervisor = db.ProjectSupervisors.Find(id);
-                if (supervisor == null)
-                {
-                    return HttpNotFound();
-                }
-
-
-                Allocation allocation = new Allocation();
-                allocation.StaffNumber = id;
-                allocation.StudentNumber = studID;
-                db.Allocations.Add(allocation);
-                db.SaveChanges();
-                return RedirectToAction("Index", "Home");
-            }
-
-        }
-
-
-        // POST: ProjectSupervisors/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Select([Bind(Include = "StaffNumber,calId")] ProjectSupervisor projectSupervisor)
-        {
-
-
-
-            if (ModelState.IsValid)
-            {
-                db.Entry(projectSupervisor).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.StaffNumber = new SelectList(db.AspNetUsers, "Id", "Email", projectSupervisor.StaffNumber);
-            return View(projectSupervisor);
-        }
 
 
 

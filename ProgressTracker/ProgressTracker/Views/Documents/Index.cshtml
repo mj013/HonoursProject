@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ProgressTracker.Models.Document>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DocumentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Path)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MilestoneID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Milestone.Text)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DocumentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Path)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MilestoneID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Milestone.Text)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DocumentID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DocumentID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DocumentID })
+        </td>
+    </tr>
+}
+
+</table>

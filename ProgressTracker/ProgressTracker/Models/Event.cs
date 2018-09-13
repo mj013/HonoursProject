@@ -15,15 +15,11 @@ namespace ProgressTracker.Models
     public partial class Event
     {
         public int EventID { get; set; }
-        public Nullable<bool> isFullDay { get; set; }
-        public Nullable<System.DateTime> StartTime { get; set; }
-        public Nullable<System.DateTime> EndTime { get; set; }
-        public string Description { get; set; }
-        public string Subject { get; set; }
-        public string ThemeColor { get; set; }
         public string UserId { get; set; }
+        public string text { get; set; }
+        public Nullable<System.DateTime> start_date { get; set; }
+        public Nullable<System.DateTime> end_date { get; set; }
     
-        public virtual ProjectSupervisor ProjectSupervisor { get; set; }
         public virtual Student Student { get; set; }
     }
 }

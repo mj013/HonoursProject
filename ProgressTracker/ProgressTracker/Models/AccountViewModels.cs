@@ -3,6 +3,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ProgressTracker.Models
 {
+    //public class SelectStudentModel
+    //{
+    //    public string Name { get; set; }
+    //    public string ProjectName { get; set; }
+    //}
+    public class SelectSupervisorModel
+    {
+        public string Name { get; set; }
+        
+    }
+
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
@@ -81,10 +92,49 @@ namespace ProgressTracker.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class RegisterAdmin
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Surname")]
+        public string Surname { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Title")]
+        public string Title { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Picture")]
+        public string Picture { get; set; }
+    }
+
     public class RegisterStudentViewModel
     {
         [Required]
         [EmailAddress]
+        [RegularExpression(@"^([sS]+[0-9]{9})+@mandela\.ac\.za$", ErrorMessage = "Not a student email, please enter your student email")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -114,7 +164,7 @@ namespace ProgressTracker.Models
 
 
         [Display(Name = "Study Year")]
-        public int StudyYear { get; set; }
+        public string StudyYear { get; set; }
 
         [DataType(DataType.Text)]
         [Display(Name = "Picture")]
@@ -131,9 +181,7 @@ namespace ProgressTracker.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-
-
-
+        
 
 
     }

@@ -15,7 +15,6 @@ namespace ProgressTracker.Models
     public partial class Allocation
     {
         public string StudentNumber { get; set; }
-        public string AllId { get; set; }
         public string StaffNumber { get; set; }
         public int Id { get; set; }
     

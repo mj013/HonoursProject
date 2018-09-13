@@ -18,19 +18,18 @@ namespace ProgressTracker.Models
         public ProjectSupervisor()
         {
             this.Allocations = new HashSet<Allocation>();
-            this.Events = new HashSet<Event>();
             this.MeetingRecords = new HashSet<MeetingRecord>();
+            this.SupervisorEvents = new HashSet<SupervisorEvent>();
         }
     
-        public string StaffNumber { get; set; }
-        public Nullable<int> calId { get; set; }
+        public string UserID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Allocation> Allocations { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Event> Events { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MeetingRecord> MeetingRecords { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SupervisorEvent> SupervisorEvents { get; set; }
     }
 }

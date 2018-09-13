@@ -14,18 +14,31 @@ namespace ProgressTracker.Models
     
     public partial class Milestone
     {
-        public string MilestoneID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Milestone()
+        {
+            this.Documents = new HashSet<Document>();
+        }
+    
         public string Text { get; set; }
         public System.DateTime StartDate { get; set; }
         public Nullable<int> Duration { get; set; }
         public string ProjectNumber { get; set; }
         public string Type { get; set; }
+        public string MilestoneID { get; set; }
         public Nullable<int> ParentId { get; set; }
         public Nullable<double> Progress { get; set; }
         public int Id { get; set; }
         public string StudentNumber { get; set; }
         public Nullable<int> SortOrder { get; set; }
+        public string Color { get; set; }
+        public Nullable<bool> Completed { get; set; }
+        public Nullable<bool> InProgress { get; set; }
+        public Nullable<bool> ToDo { get; set; }
+        public string Status { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Document> Documents { get; set; }
         public virtual Student Student { get; set; }
     }
 }

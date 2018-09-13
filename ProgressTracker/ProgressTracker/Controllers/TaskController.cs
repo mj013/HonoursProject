@@ -29,12 +29,11 @@ namespace ProgressTracker.Controllers
                                  where rowM.StudentNumber == userID
                                  select rowM;
                 data = milestones.OrderBy(t => t.SortOrder).ToList();
-
+               
+              
                 return data.Select(t => (TaskDto)t);
 
-                //return dc.Milestones
-                //.ToList()
-                //.Select(t => (TaskDto)t);
+               
             }
 
         }
@@ -60,10 +59,39 @@ namespace ProgressTracker.Controllers
         public IHttpActionResult EditTask(int id, TaskDto taskDto)
         {
             var userID = User.Identity.GetUserId();
+            Completed completed = new Completed();
+            To_Do to_Do = new To_Do();
             using (var dc = new ProgressTrackerEntities())
             {
+                
                 var updatedTask = (Milestone)taskDto;
                 updatedTask.Id = id;
+                if(taskDto.progress==1)
+                {
+                    updatedTask.Status = "Completed";
+                    completed.Progress= updatedTask.Progress;
+                    completed.StudentNumber = updatedTask.StudentNumber;
+                    dc.Completeds.Add(completed);
+                    dc.SaveChanges();
+
+
+
+                }
+                else if(taskDto.progress==0)
+                {
+                    updatedTask.Status = "To-Do";
+                    to_Do.StudentNumber = updatedTask.StudentNumber;
+                    to_Do.Progress = updatedTask.Progress;
+                    
+                    dc.To_Do.Add(to_Do);
+                    dc.SaveChanges();
+
+                }
+                else
+                {
+                    updatedTask.Status = "In-Progress";
+                }
+                
 
                 dc.Entry(updatedTask).State = EntityState.Modified;
                 dc.SaveChanges();
@@ -79,6 +107,8 @@ namespace ProgressTracker.Controllers
        [System.Web.Http.HttpPost]
         public IHttpActionResult CreateTask(TaskDto taskDto)
         {
+            Completed completed = new Completed();
+            To_Do to_Do = new To_Do();
             var userID = User.Identity.GetUserId();
             Milestone task = new Milestone();
             using (var dc = new ProgressTrackerEntities())
@@ -87,6 +117,34 @@ namespace ProgressTracker.Controllers
                 var newTask = (Milestone)taskDto;
                 newTask.SortOrder = dc.Milestones.Max(t => t.SortOrder) + 1;
                 newTask.StudentNumber = userID;
+                if (newTask.Progress == 1)
+                {
+                    newTask.Status = "Completed";
+                    newTask.Completed = true;
+                    completed.Progress = newTask.Progress;
+                    completed.StudentNumber = newTask.StudentNumber;
+                    dc.Completeds.Add(completed);
+                    dc.SaveChanges();
+                }
+                if (newTask.Progress > 0 && newTask.Progress < 1)
+                {
+                    newTask.Status = "In-Progress";
+                    newTask.InProgress = true;
+                }
+                if (newTask.Progress == 0)
+                {
+                    newTask.Status = "To-Do";
+                    newTask.ToDo = true;
+                    to_Do.StudentNumber = newTask.StudentNumber;
+                    to_Do.Progress = newTask.Progress;
+                    dc.To_Do.Add(to_Do);
+                    dc.SaveChanges();
+
+                }
+
+
+
+
 
                 dc.Milestones.Add(newTask);
 
@@ -104,46 +162,7 @@ namespace ProgressTracker.Controllers
         }
 
 
-        //private void _UpdateOrders(Milestone updatedTask, string orderTarget)
-        //{
-        //    using (var db = new ProgressTrackerEntities())
-        //    {
-        //        int adjacentTaskId;
-        //        var nextSibling = false;
-
-        //        var targetId = orderTarget;
-
-        //        // adjacent task id is sent either as '{id}' or as 'next:{id}' depending 
-        //        // on whether it's the next or the previous sibling
-        //        if (targetId.StartsWith("next:"))
-        //        {
-        //            targetId = targetId.Replace("next:", "");
-        //            nextSibling = true;
-        //        }
-
-        //        if (!int.TryParse(targetId, out adjacentTaskId))
-        //        {
-        //            return;
-        //        }
-
-        //        var adjacentTask = db.Milestones.Find(adjacentTaskId);
-        //        var startOrder = adjacentTask.SortOrder;
-
-        //        if (nextSibling)
-        //            startOrder++;
-
-        //        updatedTask.SortOrder = startOrder;
-
-        //        var updateOrders = db.Milestones
-        //         .Where(t => t.Id != updatedTask.Id)
-        //         .Where(t => t.SortOrder >= startOrder)
-        //         .OrderBy(t => t.SortOrder);
-
-        //        var taskList = updateOrders.ToList();
-
-        //        taskList.ForEach(t => t.SortOrder++);
-        //    }
-        //}
+        
 
         // DELETE api/Task/5
         [System.Web.Http.HttpDelete]

@@ -28,11 +28,13 @@ namespace ProgressTracker.Models
         }
     
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<Allocation> Allocations { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<Completed> Completeds { get; set; }
         public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Link> Links { get; set; }
@@ -42,7 +44,9 @@ namespace ProgressTracker.Models
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectSupervisor> ProjectSupervisors { get; set; }
         public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<SupervisorEvent> SupervisorEvents { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<To_Do> To_Do { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

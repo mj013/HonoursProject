@@ -15,14 +15,6 @@ namespace ProgressTracker.Controllers
         
         public ActionResult Index()
         {
-            //ProgressTrackerEntities db = new ProgressTrackerEntities();
-            //var userID = User.Identity.GetUserId();
-            //using (var dc = new ProgressTrackerEntities())
-            //{
-                
-
-
-            //}
 
                 return View();
         }

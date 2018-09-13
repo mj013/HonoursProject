@@ -17,5 +17,6 @@ namespace ProgressTracker.Models
         public string ProjectNumber { get; set; }
         public string ProjectName { get; set; }
         public System.DateTime DueDate { get; set; }
+        public string StudentNumber { get; set; }
     }
 }

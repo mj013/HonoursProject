@@ -23,10 +23,11 @@ namespace ProgressTracker.Models
             this.Milestones = new HashSet<Milestone>();
         }
     
-        public string StudentNumber { get; set; }
+        public string UserID { get; set; }
         public string Course { get; set; }
-        public int StudyYear { get; set; }
+        public string StudyYear { get; set; }
         public string ProjectName { get; set; }
+        public Nullable<int> id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Allocation> Allocations { get; set; }

@@ -16,7 +16,10 @@ namespace ProgressTracker.Models
     {
         public string DocumentID { get; set; }
         public string DocumentName { get; set; }
-        public string FileExtension { get; set; }
-        public string ContentType { get; set; }
+        public string Path { get; set; }
+        public int Id { get; set; }
+        public int MilestoneID { get; set; }
+    
+        public virtual Milestone Milestone { get; set; }
     }
 }
